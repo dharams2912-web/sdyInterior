@@ -1,36 +1,47 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# SDY Interior website
 
-## Getting Started
+Multi-page website for **SDY Interior** ("Design Beyond Walls"), led by ID. Dharamraj Yadav, Mumbai.
+Built from the *Website Strategy & SEO/GEO Blueprint* and the SDY visiting card.
 
-First, run the development server:
+## Stack
+- Next.js 16 (App Router, static prerendering) + TypeScript
+- Tailwind CSS 4 (brand tokens in `src/app/globals.css`: forest green `#1D3D35`, antique gold `#D9AE62`, ivory `#F6F0E5`)
+- Framer Motion (page reveals, split headlines, magnetic buttons, sticky horizontal project rail, scroll-linked process line)
+- Three.js via @react-three/fiber + drei (3D living room in the hero, 3D material samples on /materials-finishes/)
+- Lenis smooth scrolling
+- SDY logo loader (`src/components/Loader.tsx`) recreated from the visiting card
 
+## Run it
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev      # http://localhost:3000
+npm run build && npm start   # production
 ```
+Deploy on Vercel (import the folder/repo) or any Node host.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Pages (blueprint §4)
+`/`, `/about/`, `/services/` + 6 service pages, `/projects/` + case studies, `/our-process/`,
+`/interior-design-styles/`, `/materials-finishes/`, `/interior-design-cost/`, `/locations/`, `/locations/mumbai/`,
+`/reviews/`, `/blog/` + 3 articles, `/faqs/`, `/contact/`, `/privacy-policy/`, `/terms/`, custom 404.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## SEO / GEO built in
+- Unique title, meta description, canonical, Open Graph per page; one H1 per page; trailing-slash URLs
+- JSON-LD: HomeAndConstructionBusiness, WebSite, Person (designer), BreadcrumbList, Service, FAQPage, Article, HowTo, ItemList
+- `sitemap.xml`, `robots.txt`, `manifest.webmanifest`, generated OG image, `public/llms.txt` for AI crawlers
+- Answer-first "In short" blocks on key pages; content stays server-rendered under the animations
+- Tap-to-call, WhatsApp button with prefilled message, lead form (blueprint §13 fields) with consent;
+  `data-event` attributes + `dataLayer` `form_submit` push ready for GA4
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Where to edit
+- Business facts: `src/lib/site.ts`
+- All copy (services, projects, FAQs, process, blog, locations): `src/lib/content.ts`
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Before launch (from blueprint §19, nothing was invented)
+- [ ] Confirm which phone is WhatsApp-enabled (`site.whatsapp`, currently +91 91679 55625)
+- [ ] Add email, studio address, opening hours, social/Google Business Profile URLs (`site.ts`) — schema picks them up automatically
+- [ ] Replace the 4 **design concepts** with real project case studies + photos (set `projects` in `content.ts`; use `next/image`)
+- [ ] Add the designer's approved biography/qualifications (`src/app/about/page.tsx`)
+- [ ] Add genuine client reviews (`/reviews/`) and budget bands (`/interior-design-cost/`, lead form)
+- [ ] Confirm the service list (commercial/turnkey pages were left out until confirmed)
+- [ ] Connect the lead form to an inbox/CRM as well as WhatsApp (see comment in `LeadForm.tsx`)
+- [ ] Add GA4 + Search Console, submit the sitemap; have the privacy policy reviewed (DPDP Act)

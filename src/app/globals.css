@@ -1,26 +1,123 @@
 @import "tailwindcss";
+@import "lenis/dist/lenis.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-forest-950: #0f231e;
+  --color-forest-900: #152e28;
+  --color-forest-800: #1d3d35;
+  --color-forest-700: #264c42;
+  --color-forest-600: #335f53;
+  --color-gold-300: #ecd29c;
+  --color-gold-400: #e2bf7c;
+  --color-gold-500: #d9ae62;
+  --color-gold-600: #b98f45;
+  --color-gold-700: #8e6c30;
+  --color-olive-500: #6b6a4a;
+  --color-ivory-50: #fbf8f2;
+  --color-ivory-100: #f6f0e5;
+  --color-ivory-200: #ece2cf;
+  --color-ink: #1a2a25;
+
+  --font-display: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
+  --font-sans: var(--font-manrope), "Manrope", system-ui, sans-serif;
+
+  --ease-luxe: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  background: var(--color-forest-900);
+  color-scheme: light;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-ivory-100);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--color-gold-500);
+  color: var(--color-forest-900);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-gold-500);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Fine diagonal lattice from the visiting card */
+.bg-lattice {
+  background-image:
+    repeating-linear-gradient(45deg, rgba(217, 174, 98, 0.045) 0 1px, transparent 1px 34px),
+    repeating-linear-gradient(-45deg, rgba(217, 174, 98, 0.045) 0 1px, transparent 1px 34px);
+}
+
+.bg-lattice-dark {
+  background-image:
+    repeating-linear-gradient(45deg, rgba(29, 61, 53, 0.05) 0 1px, transparent 1px 34px),
+    repeating-linear-gradient(-45deg, rgba(29, 61, 53, 0.05) 0 1px, transparent 1px 34px);
+}
+
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.06;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+.prose-sdy h2 {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  line-height: 1.15;
+  color: var(--color-forest-800);
+  margin: 2.5rem 0 1rem;
+}
+.prose-sdy h3 {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--color-forest-800);
+  margin: 1.75rem 0 0.5rem;
+}
+.prose-sdy p {
+  margin: 0 0 1.1rem;
+  line-height: 1.8;
+  color: color-mix(in oklab, var(--color-ink) 85%, transparent);
+}
+.prose-sdy ul {
+  margin: 0 0 1.25rem;
+  padding-left: 1.25rem;
+  list-style: none;
+}
+.prose-sdy li {
+  position: relative;
+  margin: 0.45rem 0;
+  line-height: 1.7;
+}
+.prose-sdy li::before {
+  content: "";
+  position: absolute;
+  left: -1.1rem;
+  top: 0.7em;
+  width: 6px;
+  height: 6px;
+  background: var(--color-gold-500);
+  transform: rotate(45deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }
